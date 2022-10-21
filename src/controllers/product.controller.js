@@ -1,16 +1,19 @@
 import {Product} from "../models/Product.js";
+import {sequelize} from "../database/database.js";
 
 export const createProduct = async (req, res) => {
-    const {name, description, price, providerId} = req.body
+    const {name, description, price, providerId,qty} = req.body
     try {
         let newProduct = await Product.create({
             name,
             description,
             price,
+            qty,
             providerId,
         }, {
-            fields: ["name", "description", "price", "providerId"]
+            fields: ["name", "description", "price", "providerId","qty"]
         });
+        // sync categories TODO
         if (newProduct) {
             return res.json({
                 message: "Product created successfully",
@@ -25,6 +28,8 @@ export const createProduct = async (req, res) => {
         });
     }
 }
+
+
 
 export const getProducts = async (req, res) => {
     let products = await Product.findAll();
@@ -44,18 +49,15 @@ export const getProduct = async (req, res) => {
 // update unique product
 export const updateProduct = async (req, res) => {
     const {id} = req.params;
-    const {name, description, price, stock, providerId, categoryId} = req.body;
+    const {name, description, price,qty,providerId} = req.body;
 
-    const product = await Product.findOne({
-        attributes: ["id", "name", "description", "price", "stock", "providerId", "categoryId"],
-    });
+    const product = await Product.findByPk(id);
     await product.update({
         name,
         description,
         price,
-        stock,
-        providerId,
-        categoryId
+        qty,
+        providerId
     });
 
     return res.json({

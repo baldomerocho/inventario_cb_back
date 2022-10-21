@@ -10,5 +10,7 @@ export const Product = sequelize.define('product', {
 
     },
     name: DataTypes.STRING(100),
+    description: DataTypes.STRING,
+    qty: DataTypes.INTEGER,
     price: DataTypes.DECIMAL(10, 2),
 });

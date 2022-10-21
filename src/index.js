@@ -1,11 +1,7 @@
 import app from "../server/index.js";
 import {sequelize} from "./database/database.js";
 
-import "./models/Provider.js";
-import "./models/Category.js";
 import "./models/Product.js";
-import "./models/ProductCategory.js";
-import "./models/ProductDetails.js";
 
 async function main() {
   try {
