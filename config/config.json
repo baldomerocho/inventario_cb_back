@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "default",
+    "password": "secret",
+    "database": "inventario_cb",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
