@@ -44,13 +44,11 @@ export const updateProvider = async (req, res) => {
     const {id} = req.params;
     const {name, nit} = req.body;
 
-    const provider = await Provider.findOne({
-        attributes: ["id", "name", "nit"],
-    });
-    await provider.update({
+    const provider = await Provider.findByPk(id);
+    await provider.update( {
         name,
         nit
-    });
+    } );
 
     return res.json({
         message: "Provider updated successfully",
@@ -69,4 +67,16 @@ export const deleteProvider = async (req, res) => {
     res.json({
         message: "Provider deleted successfully"
     });
+}
+
+// get products all products by provider
+export const getProductsByProvider = async (req, res) => {
+    const {id} = req.params;
+    const provider = await Provider.findOne({
+        where: {
+            id
+        },
+        include: ["products"]
+    });
+    res.json(provider);
 }
